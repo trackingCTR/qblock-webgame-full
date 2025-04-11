@@ -122,11 +122,20 @@ export default function QblockGame() {
               key={piece.id}
               draggable
               onDragStart={() => setDraggedPiece(piece)}
-              className={`flex aspect-square w-16 items-center justify-center rounded-xl ${piece.color} shadow-md`}
+              className="flex flex-col items-center justify-center p-1 cursor-move"
             >
-              {piece.id === 2 && (
-                <span className="text-white font-bold">+</span>
-              )}
+              {piece.shape.map((row, rowIdx) => (
+                <div key={rowIdx} className="flex">
+                  {row.map((cell, colIdx) => (
+                    <div
+                      key={colIdx}
+                      className={`w-3 h-3 m-0.5 rounded-sm ${
+                        cell ? piece.color : "bg-transparent"
+                      }`}
+                    ></div>
+                  ))}
+                </div>
+              ))}
             </div>
           ))}
         </div>

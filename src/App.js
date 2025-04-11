@@ -1,3 +1,6 @@
+// Web version of the Qblock-inspired puzzle game
+// Core technologies: React + TailwindCSS + HTML5 drag-n-drop
+
 import React, { useState } from "react";
 
 const initialPieces = [
@@ -43,6 +46,12 @@ export default function QblockGame() {
     if (!draggedPiece) return;
     const newGrid = [...grid.map(r => [...r])];
     const shape = draggedPiece.shape;
+
+    const shapeHeight = shape.length;
+    const shapeWidth = shape[0].length;
+
+    if (row + shapeHeight > 10 || col + shapeWidth > 10) return;
+
     const canPlace = shape.every((shapeRow, rIdx) =>
       shapeRow.every((cell, cIdx) => {
         if (cell === 0) return true;
@@ -110,7 +119,7 @@ export default function QblockGame() {
                 key={`${rowIndex}-${colIndex}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={() => handleDrop(rowIndex, colIndex)}
-                className={`aspect-square w-8 rounded-lg border border-neutral-200 ${cell ? "bg-gray-400" : "bg-neutral-100"}`}
+                className={`aspect-square w-8 h-8 rounded-lg border border-neutral-200 ${cell ? "bg-gray-400" : "bg-neutral-100"}`}
               ></div>
             ))
           )}
@@ -122,14 +131,14 @@ export default function QblockGame() {
               key={piece.id}
               draggable
               onDragStart={() => setDraggedPiece(piece)}
-              className="flex flex-col items-center justify-center p-1 cursor-move"
+              className="flex flex-col items-center justify-center p-1 cursor-move bg-transparent"
             >
               {piece.shape.map((row, rowIdx) => (
                 <div key={rowIdx} className="flex">
                   {row.map((cell, colIdx) => (
                     <div
                       key={colIdx}
-                      className={`w-3 h-3 m-0.5 rounded-sm ${
+                      className={`w-8 h-8 m-0.5 rounded-md ${
                         cell ? piece.color : "bg-transparent"
                       }`}
                     ></div>

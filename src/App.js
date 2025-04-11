@@ -119,7 +119,7 @@ export default function QblockGame() {
                 key={`${rowIndex}-${colIndex}`}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={() => handleDrop(rowIndex, colIndex)}
-                className={`aspect-square w-8 h-8 rounded-lg border border-neutral-200 ${cell ? "bg-gray-400" : "bg-neutral-100"}`}
+                className={`w-10 h-10 rounded-md border border-neutral-200 ${cell ? "bg-gray-400" : "bg-neutral-100"}`}
               ></div>
             ))
           )}
@@ -131,14 +131,14 @@ export default function QblockGame() {
               key={piece.id}
               draggable
               onDragStart={() => setDraggedPiece(piece)}
-              className="flex flex-col items-center justify-center p-1 cursor-move bg-transparent"
+              className="flex flex-col items-center justify-center p-0.5 cursor-move bg-transparent"
             >
               {piece.shape.map((row, rowIdx) => (
                 <div key={rowIdx} className="flex">
                   {row.map((cell, colIdx) => (
                     <div
                       key={colIdx}
-                      className={`w-8 h-8 m-0.5 rounded-md ${
+                      className={`w-10 h-10 ${
                         cell ? piece.color : "bg-transparent"
                       }`}
                     ></div>
